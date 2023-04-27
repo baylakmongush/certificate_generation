@@ -1,6 +1,7 @@
 ## Certificate Generator
 
-<!---Пример кода-->
+### Link to Wiki [How to create a project in GCP and use it](https://github.com/baylakmongush/certificate_generation/wiki)
+
 
 This is a simple script that generates certificates of completion based on a given template for each student in a `Google Sheets` spreadsheet. The generated certificates are then uploaded to `Google Drive` and their links are added to the spreadsheet.
 
