@@ -2,7 +2,7 @@
 
 <!---Пример кода-->
 
-This is a simple script that generates certificates based on a given template for each student in a `Google Sheets` spreadsheet. The generated certificates are then uploaded to `Google Drive` and their links are added to the spreadsheet.
+This is a simple script that generates certificates of completion based on a given template for each student in a `Google Sheets` spreadsheet. The generated certificates are then uploaded to `Google Drive` and their links are added to the spreadsheet.
 
 ### Installation
 1. Clone the repository to your local machine.
