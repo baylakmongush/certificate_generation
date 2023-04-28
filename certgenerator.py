@@ -11,10 +11,10 @@ from pydrive.drive import GoogleDrive
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='Template')
-    parser.add_argument('-t', '--template', help='Template', required=True)
-    parser.add_argument('-d', '--date', help='Date', required=True)
-    parser.add_argument('-f', '--folder_id', help='Folder_Id', required=True)
+    parser = argparse.ArgumentParser(description='-t <path_to_template_file> -d <date> -f <folder_id>')
+    parser.add_argument('-t', '--template', help='path_to_template_file', required=True)
+    parser.add_argument('-d', '--date', help='date', required=True)
+    parser.add_argument('-f', '--folder_id', help='folder_id', required=True)
 
     return parser.parse_args()
 
