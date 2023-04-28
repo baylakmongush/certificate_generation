@@ -108,7 +108,7 @@ def main():
     # Generate and upload certificates
     for student in students_list:
         file_name = generate_certificate(template, student, date)
-        link = upload_certificate_to_drive(drive, args.Folder_Id, file_name)
+        link = upload_certificate_to_drive(drive, args.folder_id, file_name)
         update_google_sheet(sheet, student, link)
 
     print('Certificates generation and upload to Google Drive completed successfully!')

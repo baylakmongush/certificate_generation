@@ -162,3 +162,4 @@ venv
 .DS_Store
 
 client_secrets.json
+Certificates
