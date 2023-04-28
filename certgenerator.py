@@ -13,15 +13,15 @@ from pydrive.drive import GoogleDrive
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Template')
     parser.add_argument('-t', '--template', help='Template', required=True)
-    parser.add_argument('-r', '--referer', help='Referer', required=True)
     parser.add_argument('-d', '--date', help='Date', required=True)
+    parser.add_argument('-f', '--folder_id', help='Folder_Id', required=True)
 
     return parser.parse_args()
 
 
 def get_google_sheets_client():
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('env/service_account.json', scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_name('venv/service_account.json', scope)
     return gspread.authorize(creds)
 
 
@@ -41,7 +41,7 @@ def generate_certificate(template, student, date):
         "student_surname": student.get('surname'),
         "student_name": student.get('name'),
         "date": date,
-        "image_folder": os.path.join(os.path.abspath(os.path.dirname(__name__)), 'templates', 'images'),
+        "image_folder": os.path.join(os.path.abspath(os.path.dirname(__name__)), 'templates', 'screens'),
         "css_folder": os.path.join(os.path.abspath(os.path.dirname(__name__)), 'templates', 'css'),
     }
 
@@ -54,7 +54,9 @@ def generate_certificate(template, student, date):
         'margin-bottom': '0mm',
         'margin-left': '0mm'
     }
-
+    path = "Certificates/"
+    if not os.path.exists(path):
+        os.makedirs(path)
     pdfkit.from_string(rendered_template, f"Certificates/{file_name}.pdf", options=options)
     return file_name
 
@@ -74,9 +76,8 @@ def upload_certificate_to_drive(drive, folder_id, file_name):
     return file['alternateLink']
 
 
-def update_google_sheet(sheet, student, referer, link):
-    sheet.update_cell(student.get('coordinates')[0], student.get('coordinates')[1] + 3, link)
-    sheet.update_cell(student.get('coordinates')[0], student.get('coordinates')[1] + 4, referer)
+def update_google_sheet(sheet, student, link):
+    sheet.update_cell(student.get('coordinates')[0], student.get('coordinates')[1], link)
 
 
 def main():
@@ -107,8 +108,8 @@ def main():
     # Generate and upload certificates
     for student in students_list:
         file_name = generate_certificate(template, student, date)
-        link = upload_certificate_to_drive(drive, 'folder_id', file_name)
-        update_google_sheet(sheet, student, args.referer, link)
+        link = upload_certificate_to_drive(drive, args.Folder_Id, file_name)
+        update_google_sheet(sheet, student, link)
 
     print('Certificates generation and upload to Google Drive completed successfully!')
 

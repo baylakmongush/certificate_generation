@@ -160,3 +160,5 @@ cython_debug/
 .idea/
 venv
 .DS_Store
+
+client_secrets.json
